@@ -1,0 +1,13 @@
+prefix=/home/arjun/end-end-ml/venv
+exec_prefix=/home/arjun/end-end-ml/venv
+libdir=/home/arjun/end-end-ml/venv/lib
+sharedlibdir=/home/arjun/end-end-ml/venv/lib
+includedir=/home/arjun/end-end-ml/venv/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

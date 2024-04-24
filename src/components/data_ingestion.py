@@ -1,5 +1,5 @@
-from src.exception import CustomException
 from src.logger import logging
+from src.exception import CustomException
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 import os
@@ -45,4 +45,4 @@ class DataIngestion:
             raise CustomException(e, sys)
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.ingestion_config()
+    obj.initation_data_ingestion()

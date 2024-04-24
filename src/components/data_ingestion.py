@@ -5,6 +5,8 @@ from dataclasses import dataclass
 import os
 import sys
 import pandas as pd
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
 
 @dataclass
@@ -43,6 +45,12 @@ class DataIngestion:
 
         except Exception as e:
             raise CustomException(e, sys)
+
+
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.initation_data_ingestion()
+    train_data, test_data = obj.initation_data_ingestion()
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(
+        train_path=train_data, test_path=test_data
+    )

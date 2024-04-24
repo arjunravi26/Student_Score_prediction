@@ -7,6 +7,7 @@ import sys
 import pandas as pd
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTrainer
 
 
 @dataclass
@@ -51,6 +52,13 @@ if __name__ == "__main__":
     obj = DataIngestion()
     train_data, test_data = obj.initation_data_ingestion()
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(
-        train_path=train_data, test_path=test_data
+    preprocessed_train_df, preprocessed_test_df, preprocessor_path = (
+        data_transformation.initiate_data_transformation(
+            train_path=train_data, test_path=test_data
+        )
     )
+    data_obj = ModelTrainer()
+    predict_score = data_obj.initiate_model_trainer(
+        preprocessed_train_df, preprocessed_test_df, preprocessor_path
+    )
+    print(predict_score)

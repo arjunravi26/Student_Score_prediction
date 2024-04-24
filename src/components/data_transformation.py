@@ -53,8 +53,8 @@ class DataTransformation:
             logging.info(f"Categorical Column {self.categorical_columns}")
             preprocessor = ColumnTransformer(
                 [
-                    ("numerical_pipeline", num_pipeline,self.numerical_colunms),
-                    ("categorical_pipeline", cat_pipeline,self.categorical_columns),
+                    ("numerical_pipeline", num_pipeline, self.numerical_colunms),
+                    ("categorical_pipeline", cat_pipeline, self.categorical_columns),
                 ]
             )
             return preprocessor
@@ -77,10 +77,10 @@ class DataTransformation:
             input_feature_train_arr = preprocessing_obj.fit_transform(
                 input_feature_train_df
             )
-            input_feature_test_arr = preprocessing_obj.transform(
-                input_feature_test_df
-            )
-            train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
+            input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df)
+            train_arr = np.c_[
+                input_feature_train_arr, np.array(target_feature_train_df)
+            ]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
             logging.info("Saved preprocessing object")
             save_object(
@@ -94,4 +94,4 @@ class DataTransformation:
             )
 
         except Exception as e:
-            raise CustomException(e,sys)
+            raise CustomException(e, sys)

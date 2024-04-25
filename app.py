@@ -34,6 +34,6 @@ def predict_data():
 
 if __name__ == "__main__":
     with app.app_context():
-        root_url = url_for('index', _external=True)
+        root_url = url_for("index", _external=True)
         print(f"Flask application running at: {root_url}")
     app.run(debug=True)

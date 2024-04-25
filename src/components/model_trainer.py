@@ -4,7 +4,6 @@ from catboost import CatBoostRegressor
 from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.neighbors import KNeighborsRegressor
 from sklearn.pipeline import Pipeline
 from src.exception import CustomException
 from src.logger import logging
@@ -48,9 +47,52 @@ class ModelTrainer:
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
+            params = {
+                "Random Forest": {
+                    "criterion": [
+                        "squared_error",
+                        "friedman_mse",
+                        "absolute_error",
+                        "poisson",
+                    ],
+                    "max_features": ["sqrt", "log2", None],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+                "Decision Tree": {
+                    "criterion": [
+                        "squared_error",
+                        "friedman_mse",
+                        "absolute_error",
+                        "poisson",
+                    ],
+                    "splitter": ["best", "random"],
+                    "max_features": ["sqrt", "log2"],
+                },
+                "Gradient Boosting": {
+                    "n_estimators": [100, 200, 300],
+                    "learning_rate": [0.05, 0.1, 0.2],
+                    "max_depth": [3, 4, 5],
+                },
+                "Linear Regression": {},
+                "XGBRegressor": {
+                    "learning_rate": [0.1, 0.01, 0.05, 0.001],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+                "CatBoosting Regressor": {
+                    "depth": [6, 8, 10],
+                    "learning_rate": [0.01, 0.05, 0.1],
+                    "iterations": [30, 50, 100],
+                },
+                "AdaBoost Regressor": {
+                    "learning_rate": [0.1, 0.01, 0.5, 0.001],
+                    "loss": ["linear", "square", "exponential"],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+            }
+
             logging.info("starting evaluate model")
             models_report: dict = evaluate_model(
-                X_train, y_train, X_test, y_test, models
+                X_train, y_train, X_test, y_test, models, params
             )
             best_model_scores = max(sorted(models_report.values()))
             best_model_name = list(models_report.keys())[

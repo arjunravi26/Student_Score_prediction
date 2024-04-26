@@ -2,17 +2,17 @@ from flask import Flask, request, render_template, url_for
 from src.pipeline.predict_pipeline import CustomData, Predict_Pipeline
 
 application = Flask(__name__)
-app = application
-app.config["SERVER_NAME"] = "localhost:5000"
+# app = application
+application.config["SERVER_NAME"] = "localhost:5000"
 
 
 # Creating route for index page
-@app.route("/")
+@application.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route("/prediction", methods=["POST", "GET"])
+@application.route("/prediction", methods=["POST", "GET"])
 def predict_data():
     if request.method == "GET":
         return render_template("home.html")
@@ -33,7 +33,7 @@ def predict_data():
 
 
 if __name__ == "__main__":
-    with app.app_context():
+    with application.app_context():
         root_url = url_for("index", _external=True)
         print(f"Flask application running at: {root_url}")
-    app.run(host='0.0.0.0')
+    application.run(host='0.0.0.0')

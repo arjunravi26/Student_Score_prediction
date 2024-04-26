@@ -2,9 +2,6 @@ from flask import Flask, request, render_template, url_for
 from src.pipeline.predict_pipeline import CustomData, Predict_Pipeline
 
 application = Flask(__name__)
-# app = application
-application.config["SERVER_NAME"] = "localhost:5000"
-
 
 # Creating route for index page
 @application.route("/")
@@ -33,7 +30,4 @@ def predict_data():
 
 
 if __name__ == "__main__":
-    with application.app_context():
-        root_url = url_for("index", _external=True)
-        print(f"Flask application running at: {root_url}")
     application.run(host='0.0.0.0')

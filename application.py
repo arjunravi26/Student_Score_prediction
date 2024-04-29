@@ -2,7 +2,6 @@ from flask import Flask, request, render_template, url_for
 from src.pipeline.predict_pipeline import CustomData, Predict_Pipeline
 import requests
 import json
-from src.api.api_model import predict
 
 application = Flask(__name__)
 

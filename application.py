@@ -1,12 +1,18 @@
 from flask import Flask, request, render_template, url_for
 from src.pipeline.predict_pipeline import CustomData, Predict_Pipeline
+import requests
+import json
+from src.api.api_model import predict
 
 application = Flask(__name__)
+
 
 # Creating route for index page
 @application.route("/")
 def index():
     return render_template("index.html")
+
+
 
 
 @application.route("/prediction", methods=["POST", "GET"])
@@ -25,9 +31,9 @@ def predict_data():
         )
         features = data_pipeline.get_data_as_data_frame()
         pred_pipeline = Predict_Pipeline()
-        prediction = pred_pipeline.predict(features=features)
-        return render_template("home.html", results=prediction[0])
+        data = pred_pipeline.predict(features=features)
+        return render_template("home.html", results=data)
 
 
 if __name__ == "__main__":
-    application.run(host='0.0.0.0')
+    application.run(host="0.0.0.0", debug=True)

@@ -1,7 +1,6 @@
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template
 from src.pipeline.predict_pipeline import CustomData, Predict_Pipeline
-import requests
-import json
+
 
 application = Flask(__name__)
 
@@ -10,9 +9,6 @@ application = Flask(__name__)
 @application.route("/")
 def index():
     return render_template("index.html")
-
-
-
 
 @application.route("/prediction", methods=["POST", "GET"])
 def predict_data():

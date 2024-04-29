@@ -1,6 +1,6 @@
 pandas
 numpy
-seaborn
+# seaborn
 scikit-learn
 # matplotlib
 # catboost
